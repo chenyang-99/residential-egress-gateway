@@ -1,0 +1,22 @@
+:3000 {
+    handle /edge/${WS_PATH}* {
+        reverse_proxy 127.0.0.1:10000
+    }
+
+    handle /sub/${SUB_TOKEN} {
+        header Content-Type "text/yaml; charset=utf-8"
+        header Cache-Control "no-store"
+        header X-Content-Type-Options "nosniff"
+        rewrite * /profile.yaml
+        root * /run/app
+        file_server
+    }
+
+    handle /healthz {
+        respond "ok" 200
+    }
+
+    handle {
+        respond 404
+    }
+}

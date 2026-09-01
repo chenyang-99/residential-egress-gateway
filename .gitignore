@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+PI_AUTOPILOT_STATE.json

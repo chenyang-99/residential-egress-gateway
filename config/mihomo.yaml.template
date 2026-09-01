@@ -1,0 +1,27 @@
+proxies:
+  - name: Residential-Egress
+    type: vless
+    server: ${PUBLIC_HOST}
+    port: 443
+    uuid: ${CLIENT_UUID}
+    network: ws
+    tls: true
+    servername: ${PUBLIC_HOST}
+    udp: false
+    ws-opts:
+      path: /edge/${WS_PATH}
+      headers:
+        Host: ${PUBLIC_HOST}
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - Residential-Egress
+
+rules:
+  - GEOSITE,category-ads-all,REJECT
+  - GEOSITE,cn,DIRECT
+  - GEOIP,cn,DIRECT
+  - GEOIP,private,DIRECT
+  - MATCH,PROXY

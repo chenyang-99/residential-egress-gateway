@@ -1,0 +1,15 @@
+services:
+  residential-egress:
+    type: service
+    machineType: DCD-1
+    regions: India
+    build:
+      context: ./
+      dockerfilePath: ./Dockerfile
+      private: true
+      autoBuild: false
+    ports:
+      - 3000
+    minScale: 1
+    maxScale: 1
+    protocol: https
